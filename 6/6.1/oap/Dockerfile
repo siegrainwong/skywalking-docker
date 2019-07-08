@@ -20,11 +20,14 @@ LABEL maintainer="hanahmily@apache.org"
 
 ENV JAVA_OPTS=" -Xms256M " \
     SW_CLUSTER="standalone" \
-    SW_STORAGE="h2"
+    SW_STORAGE="elasticsearch" \
+    TZ=Asia/Shanghai
 
 WORKDIR skywalking
 
 RUN set -eux; \
+    ln -sf /usr/share/zoneinfo/$TZ  /etc/localtime; \
+    echo $TZ > /etc/timezone; \
     rm -rf "config/log4j2.xml"; \
     rm -rf "webapp"; rm -rf "agent";
 
